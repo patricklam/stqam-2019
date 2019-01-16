@@ -1,11 +1,3 @@
-## A1 (due after L12)
-
-exploratory testing of an ACM contest solution type program, or a webapp (WaterlooWorks) (L5)
-navigation structure of a webapp (dart) -> provide fix (L8-9)
-provide adequate statement and branch coverage of some significant code; argue that your coverage is sufficient (L6-7)
-test cases from design docs (L8-9)
-input space modelling (L8-11)
-
 ## A2 (due after L20)
 
 

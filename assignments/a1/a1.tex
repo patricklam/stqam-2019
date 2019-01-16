@@ -19,42 +19,26 @@ basicstyle=\ttfamily\scriptsize,commentstyle=\scriptsize\itshape,showstringspace
 \begin{document}
 
 \title{
-ECE453/CS447/SE465 \\
+SE465 \\
 Software Testing, Quality Assurance, and Maintenance\\
-Assignment/Lab 1, version 1.2}
+Assignment/Lab 1, version 0}
 \author{Patrick Lam \\
-{Release Date:  January 16, 2017} \\
+{Release Date:  January 16, 2019} \\
 }
 \renewcommand{\today}{}
 \maketitle
 
 \begin{center}
 
-{\bf Due:  11:59 PM, Monday, January 30, 2017} \\
-{\bf Submit: via ecgit }\\
+{\bf Due:  11:59 PM, Wednesday, January 30, 2019} \\
+{\bf Submit: via git.uwaterloo.ca }\\
 \end{center}
-
-% due after L12
-
-%Please download a1-skeleton.tar.gz from the course repository to get the necessary source code and 
-%test cases needed for finishing this assignment/lab. 
 
 \section*{Getting set up}
-After setting up your ssh key at \url{http://ecgit.uwaterloo.ca}, \\ fork the provided git repository at {\tt git@ecgit.uwaterloo.ca:se465/1171/a1}:
+We will create a copy of the starter repo for you in your {\tt git.uwaterloo.ca} account. You need to log in to {\tt git.uwaterloo.ca} for that to work.
 
-\begin{center}
-{\tt ssh git@ecgit.uwaterloo.ca fork se465/1171/a1 se465/1171/USERNAME/a1}
-\end{center}
-
-\noindent and then clone the provided files:
-
-\begin{center}
-{\tt git clone git@ecgit.uwaterloo.ca:se465/1171/USERNAME/a1}
-\end{center}
-
-(You can also download the provided
-files from the course repository ({\tt assignments/a1} in \url{https://github.com/patricklam/stqam-2017}),
-but don't do that if you're in the course---it'll make submitting harder.)
+You will also want to fork a copy (``remix'') of the Glitch repo of the webapp at
+\url{https://glitch.com/~se465-flashcards}. The ``Remix This'' button will let you do that.
 
 An account on {\tt ecelinux.uwaterloo.ca} is available to you.
 Several of the resources required for this assignment are already installed on these servers. Probably the Vagrant image is easiest to work with.
@@ -62,41 +46,33 @@ If you are attempting to connect to a server from off campus, remember you will 
 
 I expect each of you to do the assignment independently. I will follow UW's Policy 71 for all cases of plagiarism.
  
-\section*{How to run everything}
-Please see {\tt a1-technotes.pdf} for more details about how the provided software works.
 \newpage
  \section*{Submission instructions:} 
 Commit {\bf and push} your modifications back to your fork on {\tt
-  ecgit}.  It's git, so you can submit multiple times. After
+  git.uwaterloo.ca}.  It's git, so you can submit multiple times. After
 submission, {\bf please re-clone your submissions to make sure you
   have uploaded all necessary files}.
  
 \section*{Submission summary}
 Here's what you need to submit in your fork of the repo. Be sure to commit
-and {\bf push} your changes back to {\tt ecgit}.
+and {\bf push} your changes back to {\tt git.uwaterloo.ca}.
 \begin{enumerate}
 \item your modified {\tt FormattedCommandAliasTest.java} file in path
 \url{shared/bukkit/src/test/java/org/bukkit/command}.
 \item in directory {\tt q2}, either file {\tt exploratory.pdf} or {\tt exploratory.txt}, respectively
 in PDF or text format. I've included {\tt exploratory.tex} which you can
 \LaTeX into {\tt exploratory.pdf}. (No Microsoft Word files, please).
-\item in directory {\tt q3}, file {\tt fix.diff} (generate with {\tt git diff}) 
-and file {\tt failure.pdf}.
-\item in directory {\tt q4}, file {\tt no-dead-end.diff} and
-either file {\tt graph.png} or {\tt graph.pdf}.
-\item in directory {\tt q5}, your scripts/test harness with fake data,
-along with the code you use to generate it. (I used Python), along with 
-file {\tt scalability.pdf} summarizing your timings.
+\item in directory {\tt q3}, TBA.
 \end{enumerate}
  
  \begin{center}
  \begin{tabular}{c|cc}
  Question   &  TA in Charge \\ \hline
 1 & (mostly machine) \\ 
-2 & Jun \\ 
-3 & Song \\ 
-4 & Parsa \\
-5 & Xinye
+2 & TBA \\ 
+3 & TBA \\ 
+4 & TBA \\
+5 & TBA
  \end{tabular}
  \end{center}
 
@@ -129,22 +105,22 @@ coverage (full marks for 100\% statement coverage, nonlinearly scaled
 down for less), 5 points for your tests having passing assertions that
 verify the output. You will get 0 points if your code doesn't compile.
 
-\section*{Questions 2--5: ``average''}
-The next 4 questions are about the ``average'' Dart webapp, which I've
-also included in the Vagrant image. I developed this webapp to help me
-evaluate transfer requests. It is heavily based on the ``Tour of
-Heroes'' Angular Dart demo, with additional help from the ``Nest o' Pirates'' 
-Dart server example. The vagrant image includes
-the webapp. The {\tt a1-technotes.pdf} document describes how to start
-the webapp. Once started, you can navigate to your own copy of the
-webapp at \url{http://localhost:8088/average} on your computer.
+\section*{Questions 2--5: ``se465-flashcards''}
+The next 4 questions are about the ``se465-flashcards'' webapp.
+I hope that using Glitch will ensure painless setup; when you click the
+``remix'' button on \url{https://glitch.com/~se465-flashcards},
+it will create a copy of the code and set up a virtual machine for you.
+
+This webapp, written in Express + pug, includes both frontend code (in
+the {\tt public/js} and {\tt views} directories), as well as backend code
+(in the node.js files in the main directory). 
 
 \section*{Question 2 (10 points)}
-In this question, you will perform exploratory testing on ``average''.
+In this question, you will perform exploratory testing on ``se465-flashcards''.
 The charter will be ``Explore the overall functionality of
-average''. (1 point) Summarize in one or two sentences what you
-perceive as the goal of ``average''. (5~points) Identify the tasks
-that ``average'' should be able to do and classify them as primary or
+se465-flashcards''. (1 point) Summarize in one or two sentences what you
+perceive as the goal of ``se465-flashcards''. (5~points) Identify the tasks
+that ``se465-flashcards'' should be able to do and classify them as primary or
 contributing. (You probably want to do this in parallel with your
 exploratory testing). (1 points) Identify areas of potential
 instability. (3 points) Produce exploratory testing notes summarizing
@@ -152,7 +128,10 @@ your findings (one or two paragraphs); in Question 3 you will report a
 bug, so no need to do that here.
 
 \section*{Question 3 (10 points)}
-(3 points) Identify a failure (bug) in the ``average'' webapp. (2 points) Write down a sequence of
+(3 points) Identify a failure (bug) in the ``se465-flashcards'' webapp.
+Limit yourself to using the front-end as presented by the application; that is,
+don't enter custom URLs or send requests to the back-end.
+(2 points) Write down a sequence of
 steps to reproduce the bug. (5 points) Implement a fix for the bug and explain the
 fix; show the incorrect and correct outputs. (Screenshots are probably
 your best bet).
@@ -160,67 +139,50 @@ your best bet).
 (Think about the program's input space and poke at corners of the
 input space.)
 
-{\bf Update 01/20:} Do not use the bug that you use in Question 4 for this one.
+\section*{Question 4 (15 points)}
+Now we'll talk about the back-end. We talked about ``controllability''
+and ``observability'' for systems.  It turns out that the backend API
+has endpoints that provide controllability but not observability; the
+frontend directly queries the database to get its results (a poor
+design!)  (1 point) Briefly summarize what each of the commands in
+{\tt apiRouter.js} can do. (4 points) Propose changes to this API that
+would make each of the endpoints {\tt /api/update}, {\tt /api/delete},
+and {\tt /api/upload} testable. (3 points) Implement these changes and
+submit a {\tt diff}.
+(7 points) Write automatic test cases for each of the 3 endpoints.
+These test cases should ensure that the system is in a known state
+before they start running. (Your test cases should target your own instance
+of the webapp.)
 
-\section*{Question 4 (10 points)}
-(8 points) Draw a graph summarizing the navigation structure of ``average''.
-Nodes are pages with distinct URLs. Edges are links between these
-pages as realized by hyperlinks in the app. Submit your graph.
-(2 points) Identify the dead end (node which has no successors) in the navigation
-graph and submit a patch which corrects it.
+REST-assured looks like a good way to use JUnit tests for REST
+testing: \url{https://github.com/rest-assured/rest-assured}.
 
-{\bf Update 01/20:} Ignore the header links.
+\section*{Question 5 (15 points)}
+We'll consider the front-end next. (1 points) What feature of the front-end
+makes it difficult to test? (2 points) How can we add more controllability
+to the front-end to make it easier to test? (3 points) Implement your proposed
+change. (9 points) Create a Selenium test suite that exercises 3 features of the
+{\tt se465-testcases} webapp.
 
-\section*{Question 5 (10 points)}
-The file {\tt shared/average/fake-data-small.sh}
-contains some fake student and course
-data. You can feed it to your instance of webapp by sourcing it: from a prompt 
-(either inside or outside the VM),
-type: ``\verb+. ./fake-data-small.sh+''
+In the {\tt shared/selenium} directory in your repo, you will find a {\tt SeleniumExample}.
+You can run tests from this example using the command:
 
-Your task is to evaluate the scalability of ``average''. (6 points) To do
-so, programmatically generate test cases of various sizes. 
+\begin{verbatim}
+mvn test "-Dtest=se465.SeleniumExample#test*" -Dwebdriver.base.url=http://www.google.com
+\end{verbatim}
 
-The scalability parameter to investigate is the number of students.
-\begin{itemize}
-\item Each fake student should give rise to one REST API call to
-{\tt /student} and one to {\tt /student\_enrolment}, generating the
-student and the enrolment in 1A. I recommend randomly drawing the
-student's program from a small set that you manually create. 
-You may also want to create fake names using a Faker library e.g.
-\url{https://github.com/stympy/faker/blob/master/lib/locales/en.yml}.
-\item Create a fixed set of courses. Mine are randomly generated but
-yours don't have to be. 
-\item For each student, generate fake course marks. 
-You should generate the course marks randomly about a mean with a given
-standard deviation.
-\end{itemize}
+Your test suite should be called {\tt se465.FlashcardsTestSuite} and we should be able to run your tests with this command:
 
-{\bf Update 01/20:} Please also submit the data that you generate to get your scalability numbers.
+\begin{verbatim}
+mvn test "-Dtest=se465.FlashcardsTestSuite#test*"
+\end{verbatim}
 
-Incidentally, SE 2021 courses had the following data: 
+{\bf HINT:} You can't get the text from an input element with {\tt getText()}. See instead
+\url{http://www.w3schools.com/jsref/prop_text_value.asp}.
 
-\begin{center}
-\begin{tabular}{lrr}
-& mean & $\sigma$\\
-MATH 115 & 85.1 & 12.2 \\
-MATH 117 & 83.0 & 12.6 \\
-ECE 140 & 88.9 & 11.5 \\
-ECE 105 & 82.2 & 13.0 \\
-CS 137 & 82.5 & 10.6
-\end{tabular}
-\end{center}
+Useful reference:
 
-(4 points) Empirically determine the scalability of the app; the easier way is to
-manually time the JavaScript execution time (Chrome's developer tools
-include a Timeline), and the harder (but better) way is to develop a
-test harness.  Include the data points that you collect. Let's say
-that a running time over 1 second is unacceptable.
+\url{https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/WebElement.html}
 
-\section*{Bonus (0 points)}
-Figure out why the browser console displays a {\tt NullError} exception
-when loading the ``Courses'' page and propose a fix.
-I suspect this is also manifests as a user-visible failure which
-you could use for Question 3.
 
 \end{document}
