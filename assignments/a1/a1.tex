@@ -21,7 +21,7 @@ basicstyle=\ttfamily\scriptsize,commentstyle=\scriptsize\itshape,showstringspace
 \title{
 SE465 \\
 Software Testing, Quality Assurance, and Maintenance\\
-Assignment/Lab 1, version 0}
+Assignment/Lab 1, version 0.5}
 \author{Patrick Lam \\
 {Release Date:  January 16, 2019} \\
 }
@@ -62,7 +62,9 @@ and {\bf push} your changes back to {\tt git.uwaterloo.ca}.
 \item in directory {\tt q2}, either file {\tt exploratory.pdf} or {\tt exploratory.txt}, respectively
 in PDF or text format. I've included {\tt exploratory.tex} which you can
 \LaTeX into {\tt exploratory.pdf}. (No Microsoft Word files, please).
-\item in directory {\tt q3}, TBA.
+\item in directory {\tt q3}, file {\tt failure.pdf} or {\tt failure.txt} (containing the description of the failure, the steps to reproduce, and the incorrect and correct outputs) and file {\tt fix.diff}.
+\item in directory {\tt q4}, file {\tt backend.pdf} or {\tt backend.txt} (containing your summary of commands and a description of the proposed changes), file {\tt backend-changes.diff} implementing your changes, and {\tt se465/TestBackend.java} implementing your backend as a REST-Assured JUnit suite. Contact me if you want to use a different REST API testing framework.
+\item in directory {\tt q5}, file {\tt frontend.pdf} or {\tt frontend.txt} (discussing the feature that makes it difficult to test and the change enabling more controllability), file {\tt frontend-changes.diff} implementing the changes, and {\tt se465/FlashcardsTestSuite.java} with the Selenium test suite.
 \end{enumerate}
  
  \begin{center}
@@ -113,7 +115,12 @@ it will create a copy of the code and set up a virtual machine for you.
 
 This webapp, written in Express + pug, includes both frontend code (in
 the {\tt public/js} and {\tt views} directories), as well as backend code
-(in the node.js files in the main directory). 
+(in the node.js files in the main directory).
+
+You can get glitch to show you diffs by opening the Logs, and then
+pressing the Console button. That gets you a console, where you can
+ask for the {\tt git log} of the project. You can then use {\tt git diff}
+to print out the diffs that we ask you to submit.
 
 \section*{Question 2 (10 points)}
 In this question, you will perform exploratory testing on ``se465-flashcards''.
@@ -155,14 +162,15 @@ before they start running. (Your test cases should target your own instance
 of the webapp.)
 
 REST-assured looks like a good way to use JUnit tests for REST
-testing: \url{https://github.com/rest-assured/rest-assured}.
+testing: \url{https://github.com/rest-assured/rest-assured}, although
+you are free to use a different framework, after checking with me.
 
 \section*{Question 5 (15 points)}
 We'll consider the front-end next. (1 points) What feature of the front-end
 makes it difficult to test? (2 points) How can we add more controllability
 to the front-end to make it easier to test? (3 points) Implement your proposed
 change. (9 points) Create a Selenium test suite that exercises 3 features of the
-{\tt se465-testcases} webapp.
+{\tt se465-flashcards} webapp.
 
 In the {\tt shared/selenium} directory in your repo, you will find a {\tt SeleniumExample}.
 You can run tests from this example using the command:
