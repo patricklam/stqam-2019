@@ -1,0 +1,82 @@
+\documentclass[10pt,hidelinks]{article}
+\usepackage[letterpaper, hmargin=0.75in, vmargin=0.75in]{geometry}
+\usepackage{graphicx}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{pgf}
+\usepackage{courier}
+
+\parindent 0in
+\parskip 1.5ex
+
+
+\lstset{ %
+language=Java,
+basicstyle=\ttfamily\scriptsize,commentstyle=\scriptsize\itshape,showstringspaces=false,breaklines=true}
+
+
+\begin{document}
+
+\title{
+SE465 \\
+Software Testing, Quality Assurance, and Maintenance\\
+Assignment 1 Technical Notes}
+\author{Patrick Lam \\
+{Release Date:  January 17, 2019} \\
+}
+\renewcommand{\today}{}
+\maketitle
+
+
+This document explains how to set up a working environment for
+Assignment 1. I've chosen to use Vagrant plus glitch to make it easy to set up your
+environment. I've tested these instructions on Debian GNU/Linux as
+well as Windows. They should work on a Mac as well.
+
+\section*{Initializing your virtual machine}
+
+Install the following software:
+\begin{itemize}
+\item you should already have git, since you cloned the {\tt a1}
+  repository;
+\item virtualbox (\url{https://www.virtualbox.org/wiki/Downloads}); you don't need the extension pack or SDK;
+\item vagrant (\url{https://www.vagrantup.com/downloads.html}).
+\end{itemize}
+
+
+You should have an {\tt se465-1191-USERNAME-a1} directory after cloning your provided git
+repository. In that directory,
+you will find a {\tt Vagrantfile}, {\tt bootstrap.sh},
+along with what you need for Q1 and templates for your answers.
+
+Next, you need to get vagrant to build your virtual machine.
+\begin{itemize}
+\item Go to the {\tt a1} subdirectory, and
+  \begin{quote}
+    \verb+$ vagrant up+
+  \end{quote}
+  This initializes your virtual machine and downloads the {\tt average} sample code into the virtual machine. \\
+  potential pitfall: you may get a cryptic error about ``VT-x not available''. In that case, you need to go to your computer's BIOS settings and enable virtualization extensions. (See \url{http://superuser.com/questions/22915/how-do-i-enable-vt-x} for information.)
+\item Start an {\tt ssh} seesion into the virtual machine you've just set up:
+  \begin{quote}
+    \verb+$ vagrant ssh+
+  \end{quote} ~\\[-1em]
+  potential pitfall: {\tt ssh} may not be set up/in the PATH on your (Windows) computer. Either put it there (git includes ssh), or ssh directly into your virtual machine:
+  \begin{quote}
+    \verb+> ssh vagrant@localhost -p 2222 -i <address-vagrant-ssh-tells-you>+
+  \end{quote}
+\end{itemize}
+Great! Now you have a working virtual machine.
+
+\section*{Editing files}
+The Vagrant configuration is set up such that the {\tt shared}
+directory is also visible inside the virtual machine in your home
+directory there.  You can use your favourite text editor on your host
+machine, or you can install vim or Emacs inside the VM and edit
+there. Because the directory is shared, committing and pushing your
+clone of the repository from your host machine will send us your
+submission.
+
+\end{document}
+
