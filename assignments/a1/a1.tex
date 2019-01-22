@@ -41,8 +41,9 @@ You will also want to fork a copy (``remix'') of the Glitch repo of the webapp a
 \url{https://glitch.com/~se465-flashcards}. The ``Remix This'' button will let you do that.
 
 An account on {\tt ecelinux.uwaterloo.ca} is available to you.
-Several of the resources required for this assignment are already installed on these servers. Probably the Vagrant image is easiest to work with.
-If you are attempting to connect to a server from off campus, remember you will need to connect to the University's VPN first: \url{https://uwaterloo.ca/information-systems-technology/services/virtual-private-network-vpn/about-virtual-private-network-vpn}
+Several of the resources required for this assignment are already installed on these servers. If you are attempting to connect to a server from off campus, remember you will need to connect to the University's VPN first: \url{https://uwaterloo.ca/information-systems-technology/services/virtual-private-network-vpn/about-virtual-private-network-vpn}
+
+However, probably the Vagrant image is easiest to work with in terms of having software installed. How you choose to install your software stack is up to you. I think that there is an ample supply of options. The file {\tt a1-technotes.pdf} contains hints on getting Vagrant working.
 
 I expect each of you to do the assignment independently. I will follow UW's Policy 71 for all cases of plagiarism.
  
@@ -50,7 +51,7 @@ I expect each of you to do the assignment independently. I will follow UW's Poli
  \section*{Submission instructions:} 
 Commit {\bf and push} your modifications back to your fork on {\tt
   git.uwaterloo.ca}.  It's git, so you can submit multiple times. After
-submission, {\bf please re-clone your submissions to make sure you
+submission, {\bf please make a fresh clone of your submission to make sure you
   have uploaded all necessary files}.
  
 \section*{Submission summary}
@@ -91,7 +92,8 @@ github at \url{assignments/a1/bukkit-test-instrumentation.diff}.
 I added a skeleton test class for {\tt
   FormattedCommandAlias}, called {\tt FormattedCommandAliasTest}.
 
-You can run the tests in the VM with the command {\tt mvn test}.  To
+You can run the tests in the VM with the command {\tt mvn test} in the
+\url{~/shared/bukkit} directory.  To
 generate the Jacoco coverage report, use {\tt mvn package}. You'll
 find the resulting reports in
 \url{~/shared/bukkit/target/site/jacoco/org.bukkit.command}.
@@ -161,7 +163,8 @@ These test cases should ensure that the system is in a known state
 before they start running. (Your test cases should target your own instance
 of the webapp.)
 
-REST-assured looks like a good way to use JUnit tests for REST
+REST-assured (installed in the Vagrant image in \url{~/shared/rest-assured})
+looks like a good way to use JUnit tests for REST
 testing: \url{https://github.com/rest-assured/rest-assured}, although
 you are free to use a different framework, after checking with me.
 
@@ -176,7 +179,7 @@ In the {\tt shared/selenium} directory in your repo, you will find a {\tt Seleni
 You can run tests from this example using the command:
 
 \begin{verbatim}
-mvn test "-Dtest=se465.SeleniumExample#test*" -Dwebdriver.base.url=http://www.google.com
+mvn test "-Dtest=se465.SeleniumExample#test*" -Dwebdriver.base.url=https://www.google.com
 \end{verbatim}
 
 Your test suite should be called {\tt se465.FlashcardsTestSuite} and we should be able to run your tests with this command:
