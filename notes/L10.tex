@@ -1,0 +1,167 @@
+\documentclass[11pt]{article}
+\usepackage{listings}
+\usepackage{tikz}
+\usepackage{alltt}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{enumitem}
+%\usepackage{algorithm2e}
+\usetikzlibrary{arrows,automata,shapes}
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+    text width=5em, text centered, rounded corners, minimum height=2em]
+\tikzstyle{bt} = [rectangle, draw, fill=blue!20, 
+    text width=1em, text centered, rounded corners, minimum height=2em]
+
+\newtheorem{defn}{Definition}
+\newtheorem{crit}{Criterion}
+\newcommand{\true}{\mbox{\sf true}}
+\newcommand{\false}{\mbox{\sf false}}
+
+\newcommand{\handout}[5]{
+  \noindent
+  \begin{center}
+  \framebox{
+    \vbox{
+      \hbox to 5.78in { {\bf Software Testing, Quality Assurance and Maintenance } \hfill #2 }
+      \vspace{4mm}
+      \hbox to 5.78in { {\Large \hfill #5  \hfill} }
+      \vspace{2mm}
+      \hbox to 5.78in { {\em #3 \hfill #4} }
+    }
+  }
+  \end{center}
+  \vspace*{4mm}
+}
+
+\newcommand{\lecture}[4]{\handout{#1}{#2}{#3}{#4}{Lecture #1}}
+\topmargin 0pt
+\advance \topmargin by -\headheight
+\advance \topmargin by -\headsep
+\textheight 8.9in
+\oddsidemargin 0pt
+\evensidemargin \oddsidemargin
+\marginparwidth 0.5in
+\textwidth 6.5in
+
+\parindent 0in
+\parskip 1.5ex
+%\renewcommand{\baselinestretch}{1.25}
+
+\usepackage{enumitem}
+
+\lstset{ %
+language=Java,
+basicstyle=\ttfamily,commentstyle=\scriptsize\itshape,showstringspaces=false,breaklines=true,numbers=left}
+
+\usepackage{fontspec}
+\setmonofont{Cousine}[Scale=MatchLowercase]
+
+\begin{document}
+
+\lecture{10 --- January 23, 2019}{Winter 2019}{Patrick Lam}{version 1}
+
+\section*{REST APIs}
+
+REST (Representational State Transfer) is an architectural style widely used in web applications.
+Architectural styles are SE 464 material, but relevant to Assignment 1, so we'll talk about them briefly here.
+[I wouldn't ask questions about REST itself on exams, but one could expect questions about testing REST systems.]
+
+Many applications in the world these days are web apps, and as you know, these apps usually have a
+frontend and a backend. Assignment 1 has you testing both the frontend and the backend of my app.
+We'll talk about the backend here. For our purposes, it provides an API which allows the client to store data.
+
+Key features of REST:
+\begin{itemize}[noitemsep]
+\item client-server;
+\item stateless; and
+\item provides uniform interfaces.
+\end{itemize}
+
+Client-server is easy. The client (in our case, the front-end
+JavaScript code) sends requests to a server.  The server is
+responsible for storing the data. This enables the client to change
+somewhat independently of the server. For instance, the server might
+decide to change what database it uses behind the scenes.  The client
+doesn't need to know about that---separation of concerns.
+
+Statelessness helps systems scale better. What this means is that the
+server isn't responsible for remembering anything about client
+identities. The server receives requests and processes them
+independently. The usual concern is about authentication; requests
+need to carry authentication data with them (usually provided by a
+separate service). An analogy: because SE is a small program, I try to
+remember state in my head about each of you between interactions---at
+least your name. Larger programs need students to provide the
+necessary state (student ID numbers) with each request; the advisors
+would then look you up in a database. You can see how my approach doesn't
+scale to larger sets of students.
+
+Uniform interfaces include resources and verbs. Resources are what the
+REST service is modifying, e.g. cat pictures. Each resource has a
+Uniform Resource Identifier. In our se465-flashcards app, it's just an
+ID number. But it could be more complicated, e.g. {\tt /store/1/employee/2}.
+Verbs are what to do with the resources. HTTP defines standard
+operations, including {\tt POST}, {\tt GET}, and {\tt DELETE}.
+
+
+Further reading:
+\begin{itemize}[noitemsep]
+\item Brian Mosigisi. ``A Quick Understanding of REST''. \\
+  \url{https://scotch.io/bar-talk/a-quick-understanding-of-rest}
+\item Wikipedia is an OK reference here: \url{https://en.wikipedia.org/wiki/Representational_state_transfer}
+\end{itemize}
+
+\section*{Testing the REST API}
+\paragraph{Sending REST requests.} At the lowest level, we need to be able to send REST requests.
+It's easy to send GET requests in the browser by just navigating to a page. You can't quite send other
+requests with your bare hands. But you can use the browser developer tools in Firefox and Chrome.
+The syntax can be a bit unwieldy; stackoverflow provides the following example\footnote{\url{https://stackoverflow.com/questions/14248296/making-http-requests-using-chrome-developer-tools}}:
+
+{\scriptsize
+\begin{lstlisting}
+fetch('https://jsonplaceholder.typicode.com/posts', {
+  method: 'POST',
+  body: JSON.stringify({
+    title: 'foo', body: 'bar', userId: 1
+  }),
+  headers: {
+    'Content-type': 'application/json; charset=UTF-8'
+  }
+})
+.then(res => res.json())
+.then(console.log)
+\end{lstlisting}
+}
+
+Or, you can use command-line tools like {\tt cURL} and {\tt wget}. The Firefox dev tools will allow you to
+copy a request as cURL and run at the command line, possibly after editing.
+
+But really, you want to script this. REST Assured lets you write Java code like this\footnote{\url{https://semaphoreci.com/community/tutorials/testing-rest-endpoints-using-rest-assured}}:
+{\small
+  \begin{lstlisting}
+     @Test public void makeSureThatGoogleIsUp() {
+         given().when().get("http://www.google.com").then().statusCode(200);
+     }
+  \end{lstlisting}
+  }
+and run it as a JUnit test.
+
+To check the result, one can compare the status code to what's expected. 200 OK is usually a good HTTP code,
+which APIs should return when everything went well. And there's also a result, which one can reason about:
+{\small
+\begin{lstlisting}
+    @Test public void verifyNameStructured() {
+        given().when().get("/garage").then().body("name",equalTo("Acme garage"));
+    }
+\end{lstlisting}
+}
+
+You can also construct a POST request using the REST Assured API.
+
+\paragraph{Testing Strategy.} We discussed testing at the tactical level above, which is all you have to do for
+Assignment 1. The broader view from this course also includes test suite construction strategies, and
+we can talk about various kinds of coverage. You could, for instance, require coverage of the complete API.
+Better yet, you could require API coverage and also require that the tests cover the specified behaviour of the API.
+
+\end{document}
+
