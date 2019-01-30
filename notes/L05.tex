@@ -49,7 +49,7 @@ basicstyle=\ttfamily,commentstyle=\scriptsize\itshape,showstringspaces=false,bre
 
 \begin{document}
 
-\lecture{5 --- January 14/16, 2019}{Winter 2019}{Patrick Lam}{version 1}
+\lecture{5 --- January 14/16, 2019}{Winter 2019}{Patrick Lam}{version 2}
 
 \paragraph{Last time.} We spent most of the time talking about the distinction between
 static and dynamic analysis of code. Static analysis finds all the
@@ -62,7 +62,9 @@ actions); the test case we looked at was at
 we introduced the notion of coverage and test requirements a bit more formally.
 
 
+\vspace*{-1em}
 \section*{Exploratory Testing}
+\vspace*{-1em}
 
 Exploratory testing is usually (but not always) carried out by
 dedicated testers. In that sense, it's somewhat different from the
@@ -75,28 +77,31 @@ learn about how it works.
 
 \paragraph{Resources.} James Bach has a shorter and a longer introduction 
 to exploratory testing:\\[-2em]
+{\scriptsize
 \begin{itemize}[noitemsep]
 \item \url{http://www.satisfice.com/articles/what_is_et.shtml}
 \item \url{http://www.satisfice.com/articles/et-article.pdf}
 \end{itemize}
+}
 There is an exhaustive set of notes on exploratory testing by Cem Kaner:\\[-2em]
+{\scriptsize
 \begin{itemize}
-\item http://www.kaner.com/pdfs/QAIExploring.pdf
+\item \url{http://www.kaner.com/pdfs/QAIExploring.pdf}
 \end{itemize}
+}
 
 \begin{quote}
 ``Exploratory testing is simultaneous learning, test design, and test execution.''
 \end{quote}
-Contrast this to scripted testing, where test design
+Contrast this to scripted testing: test design
 happens ahead of time and then test execution happens (repeatedly)
-throughout the product's development cycle. Often, when we think of
-dedicated QA teams, we think that they are manually executing scripted
-tests. In 2019, that is not a terribly effective use of workers.
+throughout the product's development cycle. When we think of
+dedicated QA teams, we think they are manually executing scripted
+tests. In 2019, that is not an effective use of staff.
 
 There is a continuum between scripted testing and exploratory testing.
 Good exploratory testing may use prepared scripts for certain tasks.
 
-\newpage
 \paragraph{Scenarios where Exploratory Testing Excels.} (from Bach's article)
 \begin{itemize}[noitemsep]
 \item providing rapid feedback on new product/feature;
@@ -131,11 +136,23 @@ impressions and a summary of the test strategy/thought
 process. Artifacts such as test data or test materials are also both
 inputs and outputs from exploratory testing.
 
+\paragraph{Primary vs contributing tasks.}
+One way to classify tasks that software can do (or, in other words, its features) is
+\emph{primary} vs \emph{contributing}. A \emph{primary} task is core functionality of
+the system; it's something that you would say ``You Had One Job!'' about. As examples,
+text editors must be able to load text files, add text, and save the text files.
+On the other hand, \emph{contributing} tasks are secondary. A macro system for a text
+editor would be a contributing task. Being able to read email in your editor is
+definitely a contributing task. Sometimes it's not black-and-white. Spell-check
+can go either way.
+
 \paragraph{Example.} I recommend reading the example by James Bach in ``et-article.pdf''
 about the photo editing program (``ET in Action''). He describes how he used ET to evaluate
 software for Windows compatibility and found critical defects.
 
+\vspace*{-1em}
 \section*{In-class exercise: Exploratory testing of WaterlooWorks.}
+\vspace*{-1em}
 We will try out exploratory testing with WaterlooWorks. I believe that everyone should
 have access to the system, although for some of you there may be no jobs visible
 right now. 
