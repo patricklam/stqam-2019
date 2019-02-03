@@ -1,8 +1,10 @@
+updated for 2019, 2x/week
+
 ## Introduction and definitions (defects, faults, failures) (1 week: L1-3)
 
 L1: introduction
-L2: faults, errors, failures; dealing with an imperfect world; testing vs debugging (old L2)
-L3: in-class exercise on faults/errors/failures; validating a test suite---line intersection (old L3)
+L2: faults, errors, failures; dealing with an imperfect world; testing vs debugging
+L3: in-class exercise on faults/errors/failures; validating a test suite---line intersection
 
 L3 is (M) January 9.
 
@@ -10,16 +12,15 @@ L3 is (M) January 9.
 
 L4: static vs dynamic/"complete testing"/test cases/observability&controlability/test requirements/quantifying coverage/black-box vs white-box
 L5: open-ended exploratory testing (http://katrinatester.blogspot.com.au/2016/12/the-testing-pendulum-finding-balance-in.html)
-L6, L7, L8: statement/branch coverage (old L6, L9 on CFGs)
-L9: graph-based models/design documentation (round trips; some content from old L07, L22)
+L6, L7, L8: statement/branch coverage (during L8, skipped to L9/L10 for A1 material and then back to L8)
+L9: Selenium
+L10: REST [finished on 28 Jan]
 
-L9 is (M) January 23. Target cutoff date for A1 material.
+L11: graph-based models/design documentation (round trips) [30 Jan]
 
-L10, L11: automatically/programmatically generating test suites -- grammars (old L17, L29, L32, L33)
+L12, L13: automatically/programmatically generating test suites -- grammars
 
-L12 is (M) January 30. A1 due. Was actually the bulk of fuzzing (old L33)
-
-L13: how good can your test suite be? JUnit / mutation
+L14: how good can your test suite be? JUnit / mutation
 
 https://avandeursen.com/2012/12/21/line-coverage-lessons-from-junit/
 
