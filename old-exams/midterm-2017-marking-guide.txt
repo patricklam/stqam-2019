@@ -1,0 +1,7 @@
+Question 1. Looking for sensible grouping (e.g. genericreturntype/returntype together, but other sensible groupings OK too) and sensible names. Looking for sentence as requested. Notification about failing is best reason, take off one mark for only mentioning something like "better orgazniation".
+
+Question 2. Generating and then only passing valid results to computeAngle will not be a good unit test, it will take too long. I'd give 3/5 for that. Checking the result is optional. Answer sentence for first part should explain that we rarely get a valid triangle and hence rarely hit the atan (1 point). Calling sqrt indiscriminately is not going to work well. Not looking for smartness about rounding (although that's good too); assume that the rounded value is close enough.
+
+Question 3. Must split the short-circuit evaluation into multiple nodes. Test case "$!$$" will achieve 100% branch coverage.
+
+Question 4. I specifically asked for minimal-node. First node should include lines 2-5. Need to explain why there is statement coverage.

@@ -9,6 +9,13 @@
 \setmonofont{Cousine}[Scale=MatchLowercase]
 \usepackage{syntax}
 \usepackage{hyphenat}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata,shapes}
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+    text width=5em, text centered, rounded corners, minimum height=2em]
+\tikzstyle{bt} = [rectangle, draw, fill=blue!20, 
+    text width=4em, text centered, rounded corners, minimum height=2em]
+
 
 \parindent 0in
 \parskip 1.5ex
@@ -24,9 +31,9 @@ basicstyle=\ttfamily\scriptsize,commentstyle=\scriptsize\itshape,showstringspace
 \title{
 ECE453/CS447/SE465 \\
 Software Testing, Quality Assurance, and Maintenance\\
-Assignment/Lab 2, version 1.1}
+Assignment 2, version 0.9}
 \author{Patrick Lam \\
-{Release Date:  February 2, 2017} \\
+{Release Date:  February 4, 2019} \\
 }
 \renewcommand{\today}{}
 \maketitle
@@ -34,117 +41,40 @@ Assignment/Lab 2, version 1.1}
 \begin{center}
 
 {\bf Due:  11:59 PM, Monday, February 27, 2017} \\
-{\bf Submit: via ecgit }\\
+{\bf Submit: via git.uwaterloo.ca }\\
 \end{center}
 
 \section*{Getting set up}
-Same as last time, but this time {\tt a2} instead of {\tt a1}. There is a Vagrant VM description,
+We will create a copy of the starter repo for you in your {\tt git.uwaterloo.ca} account. You need to log in to {\tt git.uwaterloo.ca} for that to work. There is a Vagrant VM description,
 but you shouldn't need it.
 
 Tools used: python (sort of optional); g++/make (very optional); Selenium (required).
 
 \section*{Submission summary}
 Here's what you need to submit in your fork of the repo. Be sure to commit
-and {\bf push} your changes back to {\tt ecgit}.
+and {\bf push} your changes back to {\tt git.uwaterloo.ca}.
 \begin{enumerate}
-\item in directory {\tt q1}, your modified {\tt generate.py} file (unless you've mailed me to tell me that you're not using Python);
-\item in directory {\tt q2}, file {\tt mutants.pdf} as described in the question;
-\item in directory {\tt q3}, either file {\tt testcases.txt} or {\tt testcases.pdf}, which includes your test cases and the minimized test case and explanation; and, in directory {\tt shared/selenium/src/test/java/se465}, file {\tt CalcSuite.java} containing your test cases;
+\item in directory {\tt q1}, either file {\tt testcases.txt} or {\tt testcases.pdf}, which includes your test cases and the minimized test case and explanation; and, in directory {\tt shared/selenium/src/test/java/se465}, file {\tt CalcSuite.java} containing your test cases;
 \item in directory {\tt shared/selenium/src/test/java/se465}, files {\tt CalculatorPageObject.java}, {\tt OriginalCalculatorPageObject.java}, {\tt FrancaisCalculatorPageObject.java}, along with files {\tt RefactoredCalcSuite.java} and {\tt FrancaisCalcSuite.java}.
+\item in directory {\tt q3}, file {\tt fsm.pdf} as described in the question;
+\item in directory {\tt q4}, your modified {\tt generate.py} file (unless you've mailed me to tell me that you're not using Python);
+\item in directory {\tt q5}, file {\tt mutants.pdf} as described in the question;
 \end{enumerate}
-You may choose to move the {\tt q1} and {\tt q2} files into the {\tt shared} subdirectory if you want to access them in Vagrant. We'll mark submissions of {\tt q1} and {\tt q2} either in the original place or under {\tt shared}.
+You may choose to move files into the {\tt shared} subdirectory if you want to access them in Vagrant. We'll mark submissions either in the original place or under {\tt shared}.
  
  \begin{center}
  \begin{tabular}{c|cc}
  Question   &  TA in Charge \\ \hline
-1 & Jun \\
-2 & Parsa \\
-3 & Song \\
-4 & Rollen \\
+1 & ? \\
+2 & ? \\
+3 & ? \\
+4 & ? \\
+5 & ? \\
  \end{tabular}
  \end{center}
 
  \newpage
-% due after L20
-\section*{Question 1 (10 points)}
-
-Your task is to write code to randomly generate valid iCalendar {\tt
-  .ics} files. You can find the specification at
-
-\begin{center}
-  \url{https://tools.ietf.org/html/rfc5545}
-\end{center}
-Although you will be marked against the full specification, following
-the description of the subset here will suffice.
-
-\begin{itemize}
-  \item an {\tt ics} file starts with a {\tt BEGIN:VCALENDAR} line and
-    ends with an {\tt END:VCALENDAR} line. It must also contain a {\tt
-      VERSION} and {\tt PRODID} line. (The provided code generates
-    these for you.)
-  \item your {\tt ics} file should contain a sequence of events.  Each
-    event starts with {\tt BEGIN:VEVENT} and ends with {\tt
-      END:VEVENT} and contains a set of components.  Each event must
-    contain UID, DTSTAMP and DTSTART components. Valid iCalendar
-    events may contain other components, and we'll be checking that
-    your events do contain some other components.
-  \item the {\tt UID} must be a string that is unique per-event;
-  \item the {\tt DTSTAMP} and {\tt DTSTART} components must contain dates/times, which are
-    yyyymmddThhmmssZ, with T and Z literal and dates/times as appropriate.
-  \item other valid components include {\tt LOCATION}, {\tt SUMMARY}, and {\tt DTEND}.
-\end{itemize}
-
-You will find a {\tt generate.py} file with skeleton code in the {\tt q1} directory of your repo.
-You can also find a number of sample {\tt ics} files in the {\tt shared/icalendarlib} directory.
-I can run the Python file with {\tt python generate.py} at a prompt.
-
-You are not required to use the skeleton {\tt generate.py}; if you choose to write your own
-generator, email me (Patrick) to let me know. I suspect that the path of least resistance is
-using the provided skeleton. You just need to add new rules to the CFG at the end of {\tt generate.py}
-and new special productions to {\tt generate\_special\_production}. (My solution adds 4
-special productions and 9 {\tt add\_prod} lines to the CFG; you don't really need to know
-Python to solve this problem, just pattern-match against what's there already.)
-
-\paragraph{Marking scheme.} We will mark this by running your code 20 times to generate
-          {\tt ics} files. We then check that the files are different and that they include more
-          than zero events and also more than zero optional components. Finally, we'll check
-          your generated files for validity against the iCal spec using an automated tool.
-          (Details to come).
-
-\paragraph{Bonus (0 marks).} Can you create valid {\tt ics} files that break the app in {\tt shared/icalendarlib}? (I can't.)
-
-%In the {\tt shared/icalendarlib} directory, you will find an implementation of
-%an iCalendar {\tt ics} file parser, which can (perhaps) validate your generated files.
-% https://icalendar.org/validator.html
-          
-You can find links to more sample {\tt ics} files here:\\
-\url{http://apple.stackexchange.com/questions/125338/calendar-ical-ics-format}
-
-\section*{Question 2 (10 points)} 
-
-Consider the following implementation of the cycle-finding algorithm\footnote{A more verbose implementation: \url{https://en.wikipedia.org/wiki/Cycle_detection}.}. (We've included the complete implementation from there in the skeleton at {\tt q2/cycle-finder.c}, including a test harness.) In your {\tt q2/mutants.pdf} file, propose two non-stillborn and non-equivalent mutants of this function. Clearly indicate where you've mutated the ground string. Write down test inputs which strongly kill these mutants (syntax doesn't matter) and the expected output of your test cases on the original code and on the mutant.
-
-\begin{lstlisting}
-typedef struct node_s {
-        void *data;
-        struct node_s *next;
-} NODE;
-
-int list_has_cycle(NODE *list)
-{
-        NODE *fast=list;
-        while(1) {
-                if(!(fast=fast->next)) return 0;
-                if(fast==list) return 1;
-                if(!(fast=fast->next)) return 0;
-                if(fast==list) return 1;
-                list=list->next;
-        }
-        return 0;
-}
-\end{lstlisting}
-
-\section*{Question 3 (10 points)}
+\section*{Question 1 (7.5 points): More Selenium}
 
 In your repository, you will find a JavaScript application at {\tt
   shared/calc/index.html}. I wrote this application (or at least
@@ -193,7 +123,7 @@ Specifically:
 
 Minimize this test case. That is, produce a minimal-length subset of this test case---not necessarily using contiguous characters---which shows the same error. Explain the cause of the bug as well as the expected output.
 
-\item (5 points) Use Selenium to automate your 10 test cases. In the {\tt shared/selenium} directory in your repo, you will find a {\tt SeleniumExample}. You can run tests from this example using the command:
+\item (2.5 points) Use Selenium to automate your 10 test cases. In the {\tt shared/selenium} directory in your repo, you will find a {\tt SeleniumExample}. You can run tests from this example using the command:
 
 \begin{verbatim}
 mvn test "-Dtest=se465.SeleniumExample#test*" -Dwebdriver.base.url=http://www.google.com
@@ -219,9 +149,9 @@ Useful reference:
 
 %fuzz these cases?
 
-\section*{Question 4 (20 points)}
+\section*{Question 2 (20 points): Page Objects}
 
-If all goes according to plan, I'll describe the Page Object design pattern in Lecture 19 (and hope to have notes up before that). Your task is to create Page Objects for the JavaScript calculator. This will allow your tests to generalize to {\tt francais.html} (and even
+Recall the Page Object design pattern from Lecture 9. Your task is to create Page Objects for the JavaScript calculator. This will allow your tests to generalize to {\tt francais.html} (and even
 {\tt eval.html}, though we won't use that).
 
 \begin{itemize}
@@ -234,6 +164,119 @@ References for this question:
 \url{http://www.seleniumhq.org/docs/06_test_design_considerations.jsp#chapter06-reference}\footnote{use a {\tt WebDriver} rather than a {\tt Selenium} object as in the example.}
 \\
 \url{https://martinfowler.com/bliki/PageObject.html}
+
+\section*{Question 3 (7.5 points): FSM-Based Testing}
+Consider the following FSM for the authentication part of a web app.
+(inspired by \url{https://css-tricks.com/finite-state-machines-with-react/})
+
+\begin{center}
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    semithick,initial text=]
+  \node[initial,bt, text width=6em]   (1)                     {loggedOut};
+  \node[bt]          (2) [above right of=1]  {loading};
+  \node[bt]           (3) [right of=1,xshift=4em]  {loggedIn};
+
+  \path (1) edge [bend left] node[left] {submit} (2)
+  (2) edge [bend left] node[right] {fail} (1)
+  (2) edge node {success} (3)
+  (3) edge node {logout} (1);
+\end{tikzpicture}
+\end{center}
+
+(2.5 points) Write out a single sequence of steps (i.e. one test case)
+that achieves Complete Round Trip Coverage on this FSM, including
+necessary context. For example, one of your steps could be ``Log out
+of the web application''.
+
+(5 points) A good authentication system must have anti-brute-forcing
+provisions. A brute-forcing attack on this system would repeatedly try
+passwords for a user until finding one that works. Describe briefly a
+fix to the implementation that would prevent the attack. Does my FSM
+still describe your fixed system? Write down why or why not; i.e. are
+my nodes and edges still appropriate? If not, provide a modified FSM
+that does.
+
+(0 points) Think about how just looking at a model might not tell you
+how to construct a test case for the brute-forcing attack.
+
+\section*{Question 4 (10 points): Random Testcase Generation}
+
+Your task is to write code to randomly generate valid iCalendar {\tt
+  .ics} files. You can find the specification at
+
+\begin{center}
+  \url{https://tools.ietf.org/html/rfc5545}
+\end{center}
+Although you will be marked against the full specification, following
+the description of the subset here will suffice.
+
+\begin{itemize}
+  \item an {\tt ics} file starts with a {\tt BEGIN:VCALENDAR} line and
+    ends with an {\tt END:VCALENDAR} line. It must also contain a {\tt
+      VERSION} and {\tt PRODID} line. (The provided code generates
+    these for you.)
+  \item your {\tt ics} file should contain a sequence of events.  Each
+    event starts with {\tt BEGIN:VEVENT} and ends with {\tt
+      END:VEVENT} and contains a set of components.  Each event must
+    contain UID, DTSTAMP and DTSTART components. Valid iCalendar
+    events may contain other components, and we'll be checking that
+    your events do contain some other components.
+  \item the {\tt UID} must be a string that is unique per-event;
+  \item the {\tt DTSTAMP} and {\tt DTSTART} components must contain dates/times, which are
+    yyyymmddThhmmssZ, with T and Z literal and dates/times as appropriate.
+  \item other valid components include {\tt LOCATION}, {\tt SUMMARY}, and {\tt DTEND}.
+\end{itemize}
+
+You will find a {\tt generate.py} file with skeleton code in the {\tt q1} directory of your repo.
+You can also find a number of sample {\tt ics} files in the {\tt shared/icalendarlib} directory.
+I can run the Python file with {\tt python generate.py} at a prompt.
+
+You are not required to use the skeleton {\tt generate.py}; if you choose to write your own
+generator, email me (Patrick) to let me know. The path of least resistance is
+using the provided skeleton. You just need to add new rules to the CFG at the end of {\tt generate.py}
+and new special productions to {\tt generate\_special\_production}. (My solution adds 4
+special productions and 9 {\tt add\_prod} lines to the CFG; you don't really need to know
+Python to solve this problem, just pattern-match against what's there already.)
+
+\paragraph{Marking scheme.} We will mark this by running your code 20 times to generate
+          {\tt ics} files. We then check that the files are different and that they include more
+          than zero events and also more than zero optional components. Finally, we'll check
+          your generated files for validity against the iCal spec using an automated tool.
+
+\paragraph{Bonus (0 marks).} Can you create valid {\tt ics} files that break the app in {\tt shared/icalendarlib}? (I can't.)
+
+%In the {\tt shared/icalendarlib} directory, you will find an implementation of
+%an iCalendar {\tt ics} file parser, which can (perhaps) validate your generated files.
+% https://icalendar.org/validator.html
+          
+You can find links to more sample {\tt ics} files here:\\
+\url{http://apple.stackexchange.com/questions/125338/calendar-ical-ics-format}
+
+\section*{Question 5 (10 points): Mutation Testing} 
+
+Consider the following implementation of the cycle-finding algorithm\footnote{A more verbose implementation: \url{https://en.wikipedia.org/wiki/Cycle_detection}.}. (We've included the complete implementation from there in the skeleton at {\tt q5/cycle-finder.c}, including a test harness.) In your {\tt q5/mutants.pdf} file, propose two non-stillborn and non-equivalent mutants of this function. Clearly indicate where you've mutated the ground string. Write down test inputs which strongly kill these mutants (syntax doesn't matter) and the expected output of your test cases on the original code and on the mutant.
+
+\vspace*{-1em}
+\begin{lstlisting}
+typedef struct node_s {
+        void *data;
+        struct node_s *next;
+} NODE;
+
+int list_has_cycle(NODE *list)
+{
+        NODE *fast=list;
+        while(1) {
+                if(!(fast=fast->next)) return 0;
+                if(fast==list) return 1;
+                if(!(fast=fast->next)) return 0;
+                if(fast==list) return 1;
+                list=list->next;
+        }
+        return 0;
+}
+\end{lstlisting}
+
 
 
 \end{document}
