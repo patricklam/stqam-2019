@@ -1,0 +1,197 @@
+\documentclass[11pt]{article}
+\usepackage{listings}
+\usepackage{tikz}
+\usepackage{alltt}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{enumitem}
+%\usepackage{algorithm2e}
+\usetikzlibrary{arrows,automata,shapes}
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+    text width=5em, text centered, rounded corners, minimum height=2em]
+\tikzstyle{bt} = [rectangle, draw, fill=blue!20, 
+    text width=1em, text centered, rounded corners, minimum height=2em]
+
+\newtheorem{defn}{Definition}
+\newtheorem{crit}{Criterion}
+\newcommand{\true}{\mbox{\sf true}}
+\newcommand{\false}{\mbox{\sf false}}
+
+\newcommand{\handout}[5]{
+  \noindent
+  \begin{center}
+  \framebox{
+    \vbox{
+      \hbox to 5.78in { {\bf Software Testing, Quality Assurance and Maintenance } \hfill #2 }
+      \vspace{4mm}
+      \hbox to 5.78in { {\Large \hfill #5  \hfill} }
+      \vspace{2mm}
+      \hbox to 5.78in { {\em #3 \hfill #4} }
+    }
+  }
+  \end{center}
+  \vspace*{4mm}
+}
+
+\newcommand{\lecture}[4]{\handout{#1}{#2}{#3}{#4}{Lecture #1}}
+\topmargin 0pt
+\advance \topmargin by -\headheight
+\advance \topmargin by -\headsep
+\textheight 8.9in
+\oddsidemargin 0pt
+\evensidemargin \oddsidemargin
+\marginparwidth 0.5in
+\textwidth 6.5in
+
+\parindent 0in
+\parskip 1.5ex
+%\renewcommand{\baselinestretch}{1.25}
+
+%\renewcommand{\baselinestretch}{1.25}
+\begin{document}
+
+\lecture{16 --- February 25, 2019}{Winter 2019}{Patrick Lam}{version 1}
+
+Recall that the goals of mutation testing are:
+\begin{enumerate}[noitemsep]
+\item mimic (and hence test for) typical mistakes;
+\item encode knowledge about specific kinds of effective tests in practice, e.g.
+statement coverage ($\Delta 4$ from Lecture 15), checking for 0 values ($\Delta 6$).
+\end{enumerate}
+
+Reiterating the process for using mutation testing:
+\begin{itemize}[noitemsep]
+\item \emph{Goal:} kill mutants
+\item \emph{Desired Side Effect:} good tests which kill the mutants.
+\end{itemize}
+These tests will help find faults (we hope). We find these tests by
+intuition and analysis.
+
+\section*{Mutation Operators} 
+
+We'll define a number of mutation operators, although precise
+definitions are specific to a language of interest. Typical mutation
+operators will encode typical programmer mistakes, e.g. by changing
+relational operators or variable references; or common testing heuristics, 
+e.g. fail on zero. Some mutation operators are better than others.
+
+You can find a more exhaustive list of mutation operators in the PIT documentation:
+
+\begin{center}
+\url{http://pitest.org/quickstart/mutators/}
+\end{center}
+
+How
+many (intraprocedural) mutation operators can you invent for the
+following code?
+
+{ \Large
+\begin{lstlisting}
+int mutationTest(int a, b) { 
+  int x = 3 * a, y;
+  if (m > n) {
+    y = -n;
+  }
+  else if (!(a > -b)) {
+    x = a * b;
+  }
+  return x;
+}
+\end{lstlisting}
+}
+
+\paragraph{Integration Mutation.} We can go beyond mutating method bodies
+by also mutating interfaces between methods, e.g.
+\begin{itemize}
+\item change calling method by changing actual parameter values;
+\item change calling method by changing callee; or
+\item change callee by changing inputs and outputs.
+\end{itemize}
+
+{
+\begin{lstlisting}
+class M {
+  int f, g;
+
+  void c(int x) {
+    foo (x, g);
+    bar (3, x);
+  }
+
+  int foo(int a, int b) {
+    return a + b * f;
+  }
+
+  int bar(int a, int b) {
+    return a * b;
+  }
+}
+\end{lstlisting}
+}
+
+[Absolute value insertion, operator replacement, scalar variable replacement,
+  statement replacement with crash statements\ldots]
+
+\paragraph{Mutation for OO Programs.} One can also use some operators specific
+to object-oriented programs. Most obviously, one can modify the object on
+which field accesses and method calls occur.
+
+{\small
+\begin{lstlisting}
+class A {
+  public int x;
+  Object f;
+  Square s;
+
+  void m() {
+    int x;
+    f = new Object();
+    this.x = 5;
+  }
+}
+
+class B extends A {
+  int x;
+}
+\end{lstlisting}
+}
+
+\vspace*{-1em}
+\paragraph{Exercise.} Come up with a test case to kill each of these types of
+mutants.
+
+\begin{itemize}
+\item {\bf ABS}: Absolute Value Insertion\\
+{\tt x = 3 * a}
+$\Longrightarrow$ {\tt x = 3 * abs(a)}, {\tt x = 3 * -abs(a)}, {\tt x = 3 * failOnZero(a)};
+\item {\bf ROR}: Relational Operator Replacement\\
+{\tt if (m > n)} $\Longrightarrow$ {\tt if (m >= n)}, {\tt if (m < n)}, {\tt if (m <= n)}, {\tt if (m == n)}, {\tt if (m != n)}, {\tt if (false)}, {\tt if (true)}
+\item {\bf UOD}: Unary Operator Deletion\\
+{\tt if (!(a > -b))} $\Longrightarrow$ {\tt if (a > -b)}, {\tt if (!(a > b))}
+\end{itemize}
+
+
+\vspace*{-1em}
+\paragraph{Summary of Syntax-Based Testing.}~\\
+
+\begin{tabular}{l|ll}
+& Program-based & Input Space/Fuzzing \\ \hline
+Grammar & Programming language & Input languages / XML \\
+Summary & Mutates programs / tests integration & Input space testing \\
+Use Ground String? & Yes (compare outputs) & Sometimes \\
+Use Valid Strings Only? & Yes (mutants must compile) & No \\
+Tests & Mutants are not tests & Mutants are tests \\
+Killing & Generate tests by killing & Not applicable \\
+\end{tabular}
+
+Notes: 
+\begin{itemize}[noitemsep]
+\item Program-based testing has notion of strong and weak mutants; applied
+exhaustively, program-based testing could subsume many other techniques.
+\item Sometimes we mutate the grammar, not strings, and get tests from the
+mutated grammar.
+\end{itemize}
+
+\paragraph{Tool support.} PIT Mutation testing tool: \url{http://pitest.org}. Mutates
+your program, reruns your test suite, tells you how it went. You need to distinguish equivalent vs. not-killed.
+\end{document}
