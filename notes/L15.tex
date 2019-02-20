@@ -50,7 +50,7 @@
 %\renewcommand{\baselinestretch}{1.25}
 \begin{document}
 
-\lecture{15 --- February 13, 2019}{Winter 2019}{Patrick Lam}{version 1}
+\lecture{15 --- February 13, 2019}{Winter 2019}{Patrick Lam}{version 1.1}
 
 \section*{Mutation Testing}
 The second major way to use grammars in testing is mutation testing. Let's start with an example. Here is a program,
@@ -160,7 +160,7 @@ Although you could generate mutants by hand, typically you would tend to use a t
 
 Executing the mutants can be computationally expensive, since you have to run the entire test suite on each of the mutants. This is a good time to use all the compute infrastructure available to you.
 
-Generating and executing are computationally expensive, but classifying is worse, because it requires manual analysis. In particular, a not-killed result could be due to an equivalent mutant (like $\Delta$ 3 above); compilers can help, but the problem is fundamentally undecidable. Alternately, not-killed could be because the test suite isn't good enough. It's up to you to distinguish these cases.
+Generating and executing are computationally expensive, but classifying is worse, because it requires manual analysis. In particular, a not-killed result could be due to an equivalent mutant (like $\Delta$ 3 above); compilers can help, but the problem is fundamentally undecidable. Alternately, not-killed could be because the test suite isn't good enough. It's up to you to distinguish these cases. On the next page, ``bogus mutants'' denotes equivalent, stillborn and trivial mutants.
 
 You would normally want to then craft new test cases to kill the non-equivalent mutants that you found.
 
@@ -178,7 +178,7 @@ Here's a picture that illustrates a variant of the above workflow.
   \node[block,right of=elim] (gen) {Generate test cases $T$};
   \node[block,right of=gen] (runTonP) {Run $T$ on $P$};
   \node[block,below of=runTonP,yshift=2em] (runTonM) {Run $T$ on all $M$};
-  \node[block, below of=runTonM,yshift=2em] (filter) {Filter bogus $t \in T$};
+  \node[block, below of=runTonM,yshift=2em] (filter) {Filter bogus mutants};
   \node[shape=ellipse, text centered, fill=blue!20, draw, text width=5em, left of=filter] (enough) {Enough mutants killed?};
   \node[block, left of=enough] (findThreshold) {Define threshold};
   \node[shape=ellipse, text centered, fill=blue!20, draw, text width=5em, below left of=enough,xshift=-10em] (correct) {Output of $p$ on $T$ correct?};
