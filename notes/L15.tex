@@ -321,6 +321,11 @@ since it returns 6 in both cases.
 Once we find a test case that kills a mutant, we can forget the
 mutant and keep the test case. The mutant is then \emph{dead}.
 
+The other thing that can happen when you are running a test case on a mutant is
+that it loops indefinitely. You'd want to use a timeout when running testcases,
+and then you have a timeout failure, which you can presumably use to distinguish
+the mutant from the original.
+
 \paragraph{Uninteresting Mutants.} Three kinds of mutants are uninteresting:
 \begin{itemize}[noitemsep]
 \item \emph{stillborn}: such mutants cannot compile (or immediately crash);
