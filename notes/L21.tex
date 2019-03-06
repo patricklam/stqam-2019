@@ -70,7 +70,7 @@
 
 \begin{document}
 
-\lecture{21 --- March 6, 2019}{Winter 2019}{Patrick Lam}{version 1}
+\lecture{21 --- March 6, 2019}{Winter 2019}{Patrick Lam}{version 2}
 
 Recall that we've been discussing beliefs. Here are a couple of beliefs
 that are worthwhile to check. (examples courtesy Dawson Engler.)
@@ -140,28 +140,40 @@ we might observe:
 \begin{center}
 \begin{tabular}{l|l|l|l|l|l}
 \begin{minipage}{5em}
-foo(p)\\
+\begin{lstlisting}[numbers=none]
+foo(p)
 *p = x;
+\end{lstlisting}
 \end{minipage} &
 \begin{minipage}{5em}
-foo(p)\\
+\begin{lstlisting}[numbers=none]
+foo(p)
 *p = x;
+\end{lstlisting}
 \end{minipage} &
 \begin{minipage}{5em}
-foo(p)\\
+\begin{lstlisting}[numbers=none]
+foo(p)
 *p = x;
+\end{lstlisting}
 \end{minipage} &
 \begin{minipage}{5em}
-bar(p)\\
+\begin{lstlisting}[numbers=none]
+bar(p)
 p = 0;
+\end{lstlisting}
 \end{minipage} &
 \begin{minipage}{5em}
-bar(p)\\
-p=0;
+\begin{lstlisting}[numbers=none]
+bar(p)
+p = 0;
+\end{lstlisting}
 \end{minipage} &
 \begin{minipage}{5em}
-bar(p)\\
+\begin{lstlisting}[numbers=none]
+bar(p)
 *p = x;
+\end{lstlisting}
 \end{minipage} 
 \end{tabular}
 \end{center}
@@ -190,22 +202,33 @@ This time, we might observe:
 
 \begin{center}
 \begin{tabular}{l|l|l|l}
-\begin{minipage}{6em}
-p = bar(...);\\
-*p = x;
-\end{minipage} &
 \begin{minipage}{7em}
-p = bar(...);\\
-if (!p) return;\\
+\begin{lstlisting}[numbers=none]
+p = bar(...);
 *p = x;
-\end{minipage} &\begin{minipage}{7em}
-p = bar(...);\\
-if (!p) return;\\
+\end{lstlisting}
+\end{minipage} &
+\begin{minipage}{8.5em}
+\begin{lstlisting}[numbers=none]
+p = bar(...);
+if (!p) return;
 *p = x;
-\end{minipage} &\begin{minipage}{7em}
-p = bar(...);\\
-if (!p) return;\\
+\end{lstlisting}
+
+\end{minipage} &\begin{minipage}{8.5em}
+\begin{lstlisting}[numbers=none]
+p = bar(...);
+if (!p) return;
 *p = x;
+\end{lstlisting}
+
+\end{minipage} &\begin{minipage}{8.5em}
+\begin{lstlisting}[numbers=none]
+p = bar(...);
+if (!p) return;
+*p = x;
+\end{lstlisting}
+
 \end{minipage}
 \end{tabular}
 \end{center}
