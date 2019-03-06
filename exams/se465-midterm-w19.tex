@@ -1,0 +1,415 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% About this LaTeX file:
+%%
+%% This is a sample LaTeX file for a UWaterloo exam/test document using the 
+%% Odyssey exam management system and the Crowdmark online grading system.
+%% Both Odyssey and Crowdmark cover over parts of every test page.
+%% This LaTeX file sets up a page layout with this in mind.
+
+%% Look for this LaTeX file on the University of Waterloo's
+%% help page for the Crowdmark system: https://uwaterloo.ca/crowdmark/
+%% or https://uwaterloo.ca/crowdmark/midterms-and-final-exams.
+%% Sample pdf files showing the page layout options are there too, as are
+%% documents describing how to use the Odyssey and Crowdmark systems for
+%% managing and grading (online grading) your tests, quizzes, and exams.
+
+%% Why the page layout is the way it is:
+%%
+%% Odyssey uses the bottom .65 inches of every page for a page number
+%% and about 4 inches at the top of the cover page for exam information.
+%% Crowdmark uses the top 1.5 inches of every page (including the cover page)
+%% for QR coded booklet/page information.
+%% When Odyssey and Crowdmark are used together, the cover page starts
+%% with a 1.5 inch QR code area followed by the Odyssey 4 inch exam area.
+
+%% In fact, Odyssey can use as little as 3.75 inches when there are no special
+%% materials listed for an exam.  And, it can use more than 4 inches when there
+%% are many listed materials.
+
+%% How to use this LaTeX file:
+%%
+%% This sample LaTeX file can be used for 4 variations of page layout.
+%% Two variations are for Crowdmark, when the LaTeX variable tmargin is 
+%% set to 1.5in (default):
+%%   * Odyssey and Crowdmark: use the file as is
+%%     (the cover page framed box with exam info is covered up by Odyssey)
+%%   * Crowdmark without Odyssey: use the file as is 
+%%     (the framed box is not covered up)
+%%
+%% And two variations that do not use Crowdmark, when the LaTeX 
+%% variable tmargin is set to .25in (the larger Crowdmark top margin 
+%% of 1.5 inches is no longer needed):
+%%   * Odyssey without Crowdmark
+%%   * Without Odyssey or Crowdmark
+
+% Version 1 (Feb 19, 2019), Paul Kates (pkates@uwaterloo.ca).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[12pt]{article}
+
+\usepackage[utf8]{inputenc}
+% Use showframe to see layout boundaries during drafts, but not for a printed
+% exam.
+%\usepackage{showframe}
+
+%% Page layout
+\usepackage{geometry}  % used for page layout
+  % Size numbers you can change:
+  % hmargin{leftside,rightside} page margins can be adjusted to your liking.
+  % The page looks symmetric with the left, right values of .5in and .68in.
+  %
+  % Size numbers not meant for change.  Sizes are determined by the heights of
+  % the areas covered by Odyssey and Crowdmark.
+  % tmargin = margin along the top of every page 
+  %         = 1.5 inches when used with Crowdmark, or
+  %         = .25 inches when used without Crowdmark
+  % bmargin = margin along the bottom of every page = .65 inches; from Odyssey
+  % \myodysseyheight = height of this file's cover page exam info area
+  %                    which is meant to fit inside (be covered up by)
+  %                    the Odyssey exam info area (of about 4in in height
+  \newlength{\myodysseyheight} 
+  \setlength{\myodysseyheight}{3.6in}  % typical range [3.6,4] inches
+
+  \geometry{letterpaper, % 8.5 x 11 inch page (legalpaper 8.5x14in also works)
+          tmargin=1.5in, % page top margin when using Crowdmark
+         %tmargin=.25in, % page top margin when not using Crowdmark
+          hmargin={.5in,.68in}, % leftside, rightside page margins 
+                                % (page looks symmetric)
+          bmargin=.65in, % page bottom margin
+          includehead    % place header in body of text below Crowdmark QR
+          }
+
+%% Footer and header
+% The footer below will be covered up by Odyssey's footer.  But, when not using
+% Odyssey, the footer will show the same information as Odyssey: exam title and
+% page number.
+\usepackage{lastpage}  % for page number of last page
+\usepackage{fancyhdr}  % for setting footer
+  \pagestyle{fancy}
+  \fancyhead{}         % turn off default header and footer 
+  \fancyfoot{}
+  \fancyfoot[L]{University of Waterloo}  % left, centre, right footers
+  \fancyfoot[C]{SE 465 Midterm Winter 2019}
+  \fancyfoot[R]{Page \thepage\ of \pageref{LastPage}}
+
+  \renewcommand{\headrulewidth}{0pt}     % really turn off header rule
+  \renewcommand{\footrulewidth}{0.4pt}   % default is 0pt
+
+%% Other LaTeX packages and settings you use can go here:
+%
+  \usepackage{mathtools, amssymb} % mathtools includes amsmath package
+  \usepackage{enumitem}
+  \usepackage{listings}
+  \usepackage{url}
+  \lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+
+%% Question grade point values in left margin
+\reversemarginpar  % put margin note/grade on left, default is rightside of page
+\setlength{\marginparsep}{-.4in}  % default 10pt
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Cover page of test:
+
+\begin{document}
+% Save original paragraph indentation size in case you want to restore it.
+\newlength{\myoldparindent}
+\setlength{\myoldparindent}{\parindent}
+\setlength{\parindent}{0em}  % turn off paragraph indentation (set length to 0)
+% Use following line later if ever want to restore \parindent:
+%\setlength{\parindent}{\myoldparindent} 
+ 
+% A framed box is placed around the area where Odyssey puts its cover page info.
+% Anything put into this box will be covered up by Odyssey.
+% You can put your exam info here for drafts.
+% Or, use this area for your exam cover page if you decide not to use Odyssey.
+% If you find that the box frame peeks below the Odyssey cover page info then
+% either remove the framing lines by changing \fbox to \mbox below, or make 
+% a small reduction in the size of value \myodysseyheight (set above).
+
+\fbox{  % to remove the frame lines, change this \fbox to \mbox
+% Start of a minipage container (inside the fbox) for 2 inner minipages below.
+\begin{minipage}[t][\myodysseyheight]{\textwidth} 
+
+% Some layout comments you can print on a draft cover page.
+\begin{center}
+%\large{\textbf{Space above this box is for a Crowdmark QR code}}\\[1ex]
+%\large{\textbf{This boxed area will be covered up by Odyssey}}\\[2ex]
+
+% Exam title information.
+%
+SE 465 Midterm Examination\\
+University of Waterloo\\
+Term: Winter \hspace{1cm} Year: 2019\\
+\end{center}
+% Required UWaterloo exam details for cover page:
+\begin{minipage}[t]{3.5in} % half of the default 7 in page text width
+Date: Thursday, February 28, 2019\\
+Time: 18:30 – 20:00 (90 minutes)\\
+Instructors: Patrick Lam\\
+Lecture Section: 001\\
+Exam Type: Open book, open notes, calculators with no communications capabilities\\
+Number of exam pages (includes cover page): 8\\
+\end{minipage}  % end of first inner minipage of cover page exam details
+\hfill%
+%
+% Student information area:
+\begin{minipage}[t]{3.5in} % half of the page text width
+\textit{Please Print}\\[1mm]
+Last Name \hrulefill\\[2mm]
+First Name \hrulefill\\[2mm]
+UWaterloo ID \# \hrulefill\\[2mm]
+Username \hrulefill\\[2mm]
+\end{minipage} % end of second inner minipage of cover page student details
+\end{minipage} % end of framed box container minipage
+}
+
+%% "Instructions to students" area of the cover page.
+%% Every item here is optional.  Even the grading box is here only as 
+%% an example.
+%
+% Adjust the vertical space here if the Odyssey exam info area grows larger
+% and starts to cover up the grading box below.
+%\vspace{1in}   % height can be 0 to 1 inch to nicely position the grading box
+% Grading box.  Use the "Score" row for student scores if not using Crowdmark.
+\begin{center}
+ \begin{tabular}{|l| c c c c c  ||r|} \hline
+ Question & 1 & 2 & 3 & 4 & 5 & Total \\ \hline
+ Points & 15 & 10 & 15 & 10 & 10 & 60 \\ \hline
+ %Score  &    &    &    &    &    &    &    &    &    &    &    \\ \hline
+ \end{tabular}
+\end{center}
+%
+\textbf{Instructions}
+\begin{enumerate}
+   \item Turn off all communication devices. Communication devices must be stored with your personal items for the duration of the exam. Taking a communication device to a washroom break during this examination is not allowed and will be considered an academic offence.
+    \item I shuffled the order of the questions from what I said in class for better page breaks.
+    \item The exam lasts \textbf{90} minutes and there are 60 marks.
+    \item Verify that your name and student ID number is on the cover page.
+    \item If you feel like you need to ask a question, know that the most likely answer is ``Read the Question''. No questions are permitted. If you find that a question requires clarification, proceed by clearly stating any reasonable assumptions necessary to complete the question. If your assumptions are reasonable, they will be taken into account during grading. 
+\item Answer the questions in the spaces provided.  If you require 
+additional space to answer a question, please use the second last page 
+and refer to this page in your solutions. You may tear off the last page 
+to use for rough work.
+\item Do not write on the Crowdmark QR code at the top of each page.
+\item Use a dark pencil or pen for your work.
+% \item More instructions, about calculators, formula sheets, asking 
+% questions, etc.
+\end{enumerate}
+
+% Remove these 2 LaTeX commands when making your own cover page.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Second page of test, for exam questions.
+%
+\newpage
+\renewcommand{\headrulewidth}{0.4pt}  % put header rule on all non-cover pages 
+
+
+
+\section{Mutation Testing [10 Marks]}
+Consider this function {\tt Location.add()}.  Write down a (non-trivial, non-stillborn, non-equivalent) mutant to
+the {\tt Location.add()} function (indicating your change) as well as a test case that kills
+the mutant. (Use JUnit-like syntax; we don't care about the details).
+Provide the expected and actual output for your testcase with the
+original function as well as for the mutant.
+
+\vspace*{1em}
+
+Assume that you can create a {\tt Location}
+object with an expression like {\tt new Location(0.0, 4.65, 3.50, W);}. Describe a {\tt Location} with a tuple like $\langle 0.0, 4.65, 3.50, W\rangle$.
+\begin{lstlisting}[language=Java]
+    public Location(double x, double y, double z, Object world) {
+        this.x = x; this.y = y; this.z = z; this.world = world;
+    }
+  
+    // credit: org.bukkit.Location.java
+    /**
+     * Adds the location by [sic] another.
+     *
+     * @param vec The other location
+     * @return the same location
+     * @throws IllegalArgumentException for differing worlds
+     */
+    public Location add(Location vec) {
+        if (vec == null || vec.getWorld() != getWorld()) {
+            throw new IllegalArgumentException("Cannot add Locations of differing worlds");
+        }
+
+        x += vec.x;
+        y += vec.y;
+        z += vec.z;
+        return this;
+    }
+\end{lstlisting}
+\newpage
+(Extra space for Q1 answers)
+\newpage
+
+%%   private void removeFromOutgoing(Plugin plugin) {
+    %%     synchronized (outgoingLock) {
+    %%         Set<String> channels = outgoingByPlugin.get(plugin);
+
+    %%         if (channels != null) {
+    %%             String[] toRemove = channels.toArray(new String[0]);
+
+    %%             outgoingByPlugin.remove(plugin);
+
+    %%             for (String channel : toRemove) {
+    %%                 removeFromOutgoing(plugin, channel);
+    %%             }
+    %%         }
+    %%     }
+    %%   }
+
+    %% public Location setDirection(Vector vector) {
+    %%     /*
+    %%      * Sin = Opp / Hyp
+    %%      * Cos = Adj / Hyp
+    %%      * Tan = Opp / Adj
+    %%      *
+    %%      * x = -Opp
+    %%      * z = Adj
+    %%      */
+    %%     final double _2PI = 2 * Math.PI;
+    %%     final double x = vector.getX();
+    %%     final double z = vector.getZ();
+
+    %%     if (x == 0 && z == 0) {
+    %%         pitch = vector.getY() > 0 ? -90 : 90;
+    %%         return this;
+    %%     }
+
+    %%     double theta = Math.atan2(-x, z);
+    %%     yaw = (float) Math.toDegrees((theta + _2PI) % _2PI);
+
+    %%     double x2 = NumberConversions.square(x);
+    %%     double z2 = NumberConversions.square(z);
+    %%     double xz = Math.sqrt(x2 + z2);
+    %%     pitch = (float) Math.toDegrees(Math.atan(-vector.getY() / xz));
+
+    %%     return this;
+    %% }
+
+
+
+\section{Branch and Statement Coverage [15 Marks]}
+
+Here's the implementation of Java's \texttt{java.util.random.Random.nextInt} function. (5 Marks) Draw the control-flow graph
+for \texttt{nextInt}. (5 Marks) Since the utility function \texttt{next()} returns pseudorandom bits,
+discuss any difficulties that may arise in ensuring 100\% statement coverage for \texttt{nextInt()}.
+How can you ensure 100\% statement coverage? 
+(5 Marks) What about branch coverage? What are the difficulties and how can you ensure 100\% branch coverage?
+
+\vspace*{1em}
+
+Assume that you can change any part of {\tt Random}'s state and call \texttt{nextInt} how you'd like; you may not change \texttt{nextInt} itself.
+\begin{lstlisting}[language=Java]
+    // credit: java.util.Random
+
+    public int nextInt(int n) {
+        if (n<=0)
+            throw new IllegalArgumentException("n must be positive");
+
+        if ((n & -n) == n)  // i.e., n is a power of 2
+            return (int)((n * (long)next(31)) >> 31);
+
+        int bits, val;
+        do {
+            bits = next(31);
+            val = bits % n;
+        } while(bits - val + (n-1) < 0);
+        return val;
+    }
+\end{lstlisting}
+
+\newpage
+
+%Give a set of test cases that achieve 100\% statement coverage on this
+%function.
+
+    %%   private AtomicLong seed;
+
+    %%   protected int next(int bits) {
+    %%     long oldseed, nextseed;
+    %%     do {
+    %%       oldseed = seed.get();
+    %%       nextseed = (oldseed * multiplier + addend) & mask;
+    %%     } while (!seed.attemptUpdate(oldseed, nextseed));
+    %%     return (int)(nextseed >>> (48 - bits));
+    %% }
+(Extra space for Q2 answers)
+\newpage
+\section{Input Generation [10 Marks]}
+
+You have a test suite which contains the following set of calls to a REST API (\url{https://reqres.in}, specifically).
+I've put the POST and PUT payloads in braces after the URL.
+
+\begin{lstlisting}
+GET /api/users
+GET /api/users/2
+POST /api/users { "name": "plam", "job": "SE director" }
+PUT /api/users/2 { "name": "plam", "commute": "bicycle" }
+DELETE /api/users/2
+POST /api/register { "email": "patrick.lam@uwaterloo.ca", "password": "password1" }
+POST /api/login { "email": "patrick.lam@uwaterloo.ca", "password": "password2" }
+POST /api/logout { "token": "QpwL5tke4Pnpja7X" }
+\end{lstlisting}
+
+(2 Marks) Provide an additional input that looks correct and an input that looks incorrect.
+(6 Marks)~Provide pseudocode that programmatically generates correct inputs, including at least 4 of the calls above. Your pseudocode may call primitives that randomly generate an integer or string.
+(2 Marks)~Describe how to programmatically generate incorrect inputs. (A good way of
+describing is by modifying the pseudocode).
+
+\newpage
+\section{Finite State Machines [10 Marks]}
+(4 Marks) Propose a Finite State Machine for the REST API in the previous question. The FSM should abstract away from the details in the
+example requests. It should also include an appropriate cycle. (There are multiple possible correct answers). (6 Marks) Write down the test
+requirements for Simple Round Trip Coverage and a test suite which satisfies these test requirements. Are there additional test
+requirements for Complete Round Trip Coverage in your FSM?
+
+
+%Here are some inputs. Provide a grammar and an additional input that conforms to the grammar.
+%Then, give a second input that ``almost conforms'' to the grammar, in the sense that one change to the
+%grammar suffices to generate your second input.
+
+%--> sequence of API calls
+%get list, retrieve thing, modify it, push thing
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Some tests may want to end with blank pages for student's rough work, or
+%% for more space to write answers.  Some optional instructions are given below.
+%% \newpage 
+
+%% \begin{center}
+%% Extra page for answers.
+%% Please specify the question number here and the use of this page on
+%% the question page.
+%% \end{center}
+
+\newpage
+\section{Short Answer [15 Marks total]}
+
+Answer these questions using at most three sentences. Each question is worth
+3 marks.
+
+\begin{enumerate}[label=(\alph*)]
+
+\item Give an example of a bug that is best detected by exploratory testing.
+  \vspace*{6em}
+\item Your test suite achieves 55\% statement coverage and the tests all pass. Without any further information, what is one fact that you can conclude about the statements that are reported as covered?
+  \vspace*{6em}
+\item For the same test suite as above, what can you conclude about the 45\% of statements that aren't covered?
+  \vspace*{6em}
+\item You are developing a test suite for a web page that is to be translated into multiple languages. How do you introduce a level of abstraction into your tests?
+  \vspace*{6em}
+\item Consider a reachable fault $F$ that infects the program state, propagating to output. Say you delete the line of code containing $F$. Would you still expect a failure? Where is the fault now?
+  \vspace*{6em}
+
+%\item Describe one idiom in the code which makes it difficult to achieve 100\% statement coverage.
+%\item Web frontend testing
+
+\end{enumerate}
+
+\end{document}
+
