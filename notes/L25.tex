@@ -59,7 +59,7 @@
 
 \begin{document}
 
-\lecture{25 --- March 20, 2019}{Winter 2019}{Patrick Lam}{version 1}
+\lecture{25 --- March 20, 2019}{Winter 2019}{Patrick Lam}{version 2}
 
 \section*{More on Flaky Tests}
 
@@ -114,6 +114,50 @@ Then, in another test, send the data to the actual service (i.e. test the tests)
 
 The benefits are much faster tests (10$\times$ speedup: from 30 minutes to 3 minutes)
 which are not at all flaky and which can run on developer machines.
+
+
+\section*{Continuous Integration}
+This is not a complicated concept. Literally, continuous integration requires you to use
+a single shared master branch with your development teams. That is integration because you're
+merging your changes into master, and continuous because you're doing it all the time.
+
+\paragraph{Why CI Is Awesome.} Before CI, people could be stuck integrating changes for months 
+(or longer!) after each team finishes developing their change. This is not good. Instead,
+your software always stays in a working state.
+
+\paragraph{Necessary CI Practices.} You can't just do CI, though. It's not new, but there
+was a time before CI, because the infrastructure didn't exist yet. You need \emph{continuous builds} and \emph{test automation} to make CI work (and, of course, a source control repository).
+You can then use CI to do Continous Deployment. Here's how CI works.
+
+    \begin{enumerate}[noitemsep]
+    \item You clone the repo (which works).
+    \item You make your changes.
+    \item You commit and push your changes (often!)
+    \item A machine pulls the changes, compiles them, and runs automated tests.
+      \item Everyone knows whether your changes passed tests or not.
+    \end{enumerate}
+
+Continuous Deployment is a minor variant to CI where the production machines also pull changes
+as soon as the tests pass, and deploy them.
+
+\paragraph{Key Details.} To make Continuous Integration work, you'll probably have to follow these practices as well:
+
+    \begin{itemize}[noitemsep]
+    \item Fix broken builds immediately! (Commits shouldn't even be accepted if they don't compile; test cases should start immediately and fixing them is a high priority task).
+    \item Keep the build fast (minutes): parallelize the build and tests. Deploy tiered tests: fast tests run first, then slower, more detailed tests.
+    \item Test in a production-like environment. Virtual machines are helpful here.
+    \end{itemize}
+
+
+\paragraph{References about Continuous Integration.}~\\
+    Bullet points from Gitlab: 
+    \url{about.gitlab.com/2015/02/03/7-reasons-why-you-should-be-using-ci/}\\[1em]
+    Mid-length article from Atlassian: \\
+\url{www.atlassian.com/agile/continuous-integration}\\[1em]
+    Longer article by Martin Fowler: \\
+    \url{martinfowler.com/articles/continuousIntegration.html}\\[2em]
+    Serverless CI: \\
+    \url{medium.com/@hichaelmart/lambci-4c3e29d6599b}
 
 \section*{Airbnb Testing Infrastructure}
 
