@@ -26,9 +26,9 @@ basicstyle=\scriptsize,commentstyle=\scriptsize\itshape,showstringspaces=false,b
 \begin{document}
 
 \title{
-(SE465) \\
+SE465 \\
 Software Testing, Quality Assurance, and Maintenance\\
-Project, Version 1}
+Project, Version 1.1\footnote{updated URLs}}
 \author{Instructor: Patrick Lam (author credit: Lin Tan)\\
 Release Date:  March 11, 2019 }
 \renewcommand{\today}{}
@@ -77,7 +77,7 @@ It must not break the marking script given to you for Part I (a).
 \end{itemize}
 
 The layout of your directories is important, since we use automated software
-to mark your submissions. In addition, {\bf your code must work on ecelinux machines}.
+to mark your submissions. In addition, {\bf your code must work on ecetesla0}.
 
 In your top-level ``pi/partA'' directory there should be your {\tt Makefile},
 {\tt source code} and
@@ -178,7 +178,7 @@ bug: D in scope2, pair: (B, D), support: 4, confidence: 80.00%
 Given a bitcode file, use LLVM {\em opt} to generate call graphs in plain text format,
 and then analyze the textual call graphs to generate function pairs and detect bugs. 
 %Two methods, either parse call graphs from text, or write LLVM pass. In either case, use 
-The {\em opt} tool is installed on ecelinux (ecelinux.uwaterloo.ca) under /usr/local/bin.
+The {\em opt} tool is installed on the ECE machines (ecetesla0.uwaterloo.ca) as well as the CS machines.
 If you want to work on your own computer, you need to use 64-bit LLVM 3.0 to avoid compatibility issues.
 LLVM 3.0 is available as a package in many popular Linux distributions.
 %(compilation instructions at \url{https://ece.uwaterloo.ca/~lintan/courses/testing/llvm.html}). 
@@ -528,7 +528,7 @@ and ensure ``opt'' would not optimize the function arguments:
 For this part of the project you will be using the static code analysis tool Coverity to find defects in source code. We have acquired a Coverity license for student use. Occasionally, we will collect groups, generate Coverity credentials, and mail you a link which allows you choose a password for your credentials.
 
 \subsection*{(a) Resolving Bugs in Apache Commons}
-In this task, you are to triage warning messages resulting from running Coverity static analysis on Apache Commons (a library of useful Java tools). We have already compiled and analyzed a version of Apache Commons for you. The pre-analyzed code is available on Coverity's web interface at \url{http://ecelinux1.uwaterloo.ca:8080}. Log in using username ``student" and password ``\%Ccb2wXQ". To view and triage warnings from the analysis, select the ``Outstanding Defects" item in the navigation tree on the left hand side of the page. Click on warnings to view details of the warning and the source code that triggered the warning.
+In this task, you are to triage warning messages resulting from running Coverity static analysis on Apache Commons (a library of useful Java tools). We have already compiled and analyzed a version of Apache Commons for you. The pre-analyzed code is available on Coverity's web interface at \url{http://ecetesla0.uwaterloo.ca:8080} behind the firewall. Log in using username ``student" and password ``\%Ccb2wXQ". To view and triage warnings from the analysis, select the ``Outstanding Defects" item in the navigation tree on the left hand side of the page. Click on warnings to view details of the warning and the source code that triggered the warning.
 
 The analysis results contain warnings from both Coverity and FindBugs static analysis tools. 
 
@@ -544,15 +544,15 @@ If you classify the warning as \textit{False Positive}, provide an explanation a
 
 The difference between False Positive/Intentional and Intentional/Bug is not always clear, so there is not necessary one unique good classification. Make sure you explain clearly your choice!
 
-For details on each Coverity checker, read the checker documentation found on ecelinux (see  \url{https://ece.uwaterloo.ca/~lintan/courses/testing/coverity.html\#reference\_material}). Information on FindBugs checkers can be found at \url{http://findbugs.sourceforge.net/bugDescriptions.html}.
+For details on each Coverity checker, read the checker documentation (see  \url{https://patricklam.ca/stqam/coverity/\#reference\_material}). Information on FindBugs checkers can be found at \url{http://findbugs.sourceforge.net/bugDescriptions.html}.
 
 The report for this part should be no more than 4 pages. Be concise. 
 
 \subsection*{(b) Analyzing Your Own Code}
 
 Run Coverity on your own code from part (I) (a). 
-See instructions on \url{https://ece.uwaterloo.ca/~lintan/courses/testing/coverity.html} to analyze your code with Coverity Connect interface. 
-Once your project is uploaded on the web interface, you must \textbf{make it inaccessible to other students: connect on \url{http://ecelinux1.uwaterloo.ca:8080} with your credentials. 
+See instructions on \url{https://patricklam.ca/stqam/coverity/} to analyze your code with Coverity Connect interface. 
+Once your project is uploaded on the web interface, you must \textbf{make it inaccessible to other students: connect on \url{http://ecetesla0.uwaterloo.ca:8080} with your credentials. 
 Click on ``Configuration" , ``Projects \& Streams" and Select your project. 
 In the ``Roles" tab, click on ``add" and check ``\underline{No Access}" for the group ``Students".}
 
@@ -562,7 +562,7 @@ You learn more from having the tool find defects in code that you wrote, fixing 
 Include the results from your analysis with your submission. Put them 
 in directory \texttt{pii}.
 
-You can find instructions on how to use Coverity to build and analyze your code at \url{https://ece.uwaterloo.ca/~lintan/courses/testing/coverity.html}. 
+You can find instructions on how to use Coverity to build and analyze your code at \url{https://patricklam.ca/stqam/coverity/}. 
 
 %We have provided a php script to convert the Coverity xml output file to a prettier format. 
 %You can use this site (\url{https://ece.uwaterloo.ca/~qhanam/read-errors.php}) to make Coverity's xml output easier to read. 
