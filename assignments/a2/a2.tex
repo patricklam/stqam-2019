@@ -282,3 +282,13 @@ int list_has_cycle(NODE *list)
 
 
 \end{document}
+
+Suggestions for improvement for 2020 from Michael Socha
+
+I have completed marking and entered marks for SE 465 A2 Q2. Students did well on this question. The average is around 18.5/20 (a histogram is attached).
+
+The most common mistakes were incompleteness, not using inheritance properly, building a page interface with bad getter methods (e.g. a single getter that returns an array of all values), and not using the web driver properly (e.g. calling Thread.sleep instead of making the web driver wait).
+
+I think this question is a good exercise, but a few things I would recommend for the future are:
+1. I don't think this question should be out of 20 marks. Building the page objects seems to be around 10 marks of effort, but making the existing tests use these page objects is less involved (maybe 5 marks of effort).
+2. I would suggest making the JUnit parameter implementation of the English+French test suite mandatory. Having duplicated tests for English and French largely defeats the purpose of having a common page interface in the first place.
