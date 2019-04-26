@@ -269,6 +269,8 @@ it is unnecessarily restrictive. I expect that many solutions wouldn't actually 
 fine, since students don't have a computer at hand. Just look for the concepts of locating the node and
 then filtering on something that seems reasonable.
 
+Somehow a lot of students got tripped up by my statements about comments. I was looking for emptiness. I guess the question was somewhat confusingly worded. I deducted 3 points if it didn't actually check for emptiness.
+
 \q{6} Oops, I forgot some closing statements. Here's what the grammar should look like.
 
 \begin{verbatim}
@@ -279,8 +281,11 @@ room :- "room" DIGIT DIGIT DIGIT DIGIT "\n" occupant* "end-room\n"
 occupant :- "occupant" OCCUPANT "\n"
 \end{verbatim}
 
-In a context-free grammar it's quite hard to enforce the stated constraint. You could do it at a
+(3 points) In a context-free grammar it's quite hard to enforce the stated constraint. You could do it at a
 grammar level by having a bunch of floorN productions. But that would be weird. Better to do it at a
 higher level, for instance by modifying generated rooms so that they meet the stated constraint.
+
+The \verb+"\n"+ is not mandatory. I guess I also didn't specifically say that you had to have
+\verb+building*+ at top level (i.e. that you could generate more than one building).
 
 \end{document}
