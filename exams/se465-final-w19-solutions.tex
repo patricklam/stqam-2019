@@ -126,16 +126,16 @@ edit the FSM, another thing we could do is make the states more granular.
 
 \newpage
 
-\q{2.1} a) There might be a {\tt NullPointerException}. The open ({\tt
+\q{2.1} (2 points) a) There might be a {\tt NullPointerException}. The open ({\tt
   new Reader}) may throw an {\tt IOException} (FileNotFound), which is
 caught; execution then proceeds to the {\tt close} on the null {\tt
   reader}.
 
-b) {\tt @Nullable} is not necessary since {\tt readFile()} cannot be called with a null {\tt BufferedReader} from what is seen here. Either the instantiation of {\tt new BufferedReader} will succeed or fail. If it succeeds, then {\tt reader} isn't null. If it fails, then the call to {\tt readFile()} doesn't happen.
+b) (5 points) {\tt @Nullable} is not necessary since {\tt readFile()} cannot be called with a null {\tt BufferedReader} from what is seen here. Either the instantiation of {\tt new BufferedReader} will succeed or fail. If it succeeds, then {\tt reader} isn't null. If it fails, then the call to {\tt readFile()} doesn't happen.
 
-@Nullable would be necessary when there is a possibility {\tt BufferedReader r} passed in can be null, e.g. if we fail to instantiate the 'reader' variable. we will then need a null pointer exception check in the function.
+@Nullable would be necessary when there is a possibility {\tt BufferedReader r} passed in can be null, e.g. if we may fail to instantiate the 'reader' variable by moving the {\tt readFile} call to after the {\tt catch}. we will then need a null pointer exception check in the function.
 
-c) This code will not pass FB Infer, since FB Infer thinks {\tt BufferedReader r} might be null when it enters the function and performing {\tt r.readLine()} on a null {\tt r} will fail. The code should be modified to include a {\tt if (r == null) { return; }} line as the first line in the function.
+c) (3 points) This code will not pass FB Infer, since FB Infer thinks {\tt BufferedReader r} might be null when it enters the function and performing {\tt r.readLine()} on a null {\tt r} will fail. The code should be modified to include a {\tt if (r == null) { return; }} line as the first line in the function.
 
 \q{2.2} One example:
 
